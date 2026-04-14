@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeportivosPro – Sistema de Gestión Deportiva</title>
+  <meta name="description" content="DeportivosPro: Sistema de gestión para centros deportivos. Administra reservas, inventario y canchas fácilmente." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===================== LOGIN PAGE ===================== -->
+<div id="page-login" class="page active">
+  <div class="login-bg">
+    <div class="login-center">
+      <div class="login-brand">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h1 class="brand-name">DeportivosPro</h1>
+        <p class="brand-sub">Sistema de Gestión Deportiva</p>
+      </div>
+
+      <div class="login-card">
+        <h2 class="login-title">Iniciar Sesión</h2>
+        <p class="login-desc">Ingresa tus credenciales para acceder al sistema</p>
+
+        <div class="form-group">
+          <label for="email-input">Correo Electrónico</label>
+          <input id="email-input" type="email" placeholder="tu@email.com" value="admin@deportivospro.com" />
+        </div>
+        <div class="form-group">
+          <label for="pass-input">Contraseña</label>
+          <input id="pass-input" type="password" placeholder="••••••••" value="admin123" />
+        </div>
+        <div id="login-error" class="login-error hidden">Credenciales incorrectas. Intenta de nuevo.</div>
+        <button id="btn-login" class="btn-login" onclick="doLogin()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Iniciar Sesión
+        </button>
+
+        <div class="credentials-box">
+          <p class="cred-title">Credenciales de prueba:</p>
+
+          <div class="cred-section-label">🔧 Administración</div>
+          <div class="cred-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span><strong>Admin:</strong></span>
+          </div>
+          <p class="cred-detail">admin@deportivospro.com / admin123</p>
+          <div class="cred-item" style="margin-top:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span><strong>Staff:</strong></span>
+          </div>
+          <p class="cred-detail">staff@deportivospro.com / staff123</p>
+
+          <div class="cred-section-label" style="margin-top:10px">👤 Usuarios</div>
+          <div class="cred-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span><strong>Juan Pérez:</strong></span>
+          </div>
+          <p class="cred-detail">juan@mail.com / juan123</p>
+          <div class="cred-item" style="margin-top:5px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span><strong>María González:</strong></span>
+          </div>
+          <p class="cred-detail">maria@mail.com / maria123</p>
+          <div class="cred-item" style="margin-top:5px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span><strong>Carlos Rodríguez:</strong></span>
+          </div>
+          <p class="cred-detail">carlos@mail.com / carlos123</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="page-app" class="page hidden">
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-brand-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div>
+        <div class="nav-brand-name">DeportivosPro</div>
+        <div class="nav-brand-sub">Sistema de Gestión</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" id="nav-dashboard" onclick="showPage('dashboard')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-link" id="nav-reservas" onclick="showPage('reservas')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Reservas
+      </button>
+      <button class="nav-link" id="nav-inventario" onclick="showPage('inventario')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Inventario
+      </button>
+      <button class="nav-link" id="nav-canchas" onclick="showPage('canchas')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Canchas
+      </button>
+    </div>
+    <div class="nav-right">
+      <button class="nav-user">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="nav-username">Administrador</span>
+      </button>
+      <button class="btn-logout" onclick="doLogout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Salir
+      </button>
+    </div>
+  </nav>
+
+  <!-- CONTENT AREA -->
+  <main class="main-content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="section-dashboard" class="content-section active">
+      <div class="section-header">
+        <h2 class="section-title">Dashboard</h2>
+        <p class="section-sub">Bienvenido al sistema de gestión del centro deportivo</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Reservas Hoy</p>
+              <p class="stat-value">24</p>
+            </div>
+            <div class="stat-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+          </div>
+          <p class="stat-change positive">+12% vs mes anterior</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Canchas Activas</p>
+              <p class="stat-value">8</p>
+            </div>
+            <div class="stat-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+          </div>
+          <p class="stat-change neutral">100% vs mes anterior</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Productos en Stock</p>
+              <p class="stat-value">156</p>
+            </div>
+            <div class="stat-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+          </div>
+          <p class="stat-change negative">-5% vs mes anterior</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Clientes Activos</p>
+              <p class="stat-value">89</p>
+            </div>
+            <div class="stat-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+          </div>
+          <p class="stat-change positive">+8% vs mes anterior</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <h3 class="dash-card-title">Reservas Recientes</h3>
+          </div>
+          <div class="reservation-list">
+            <div class="reservation-item">
+              <div class="res-info">
+                <p class="res-name">Juan Pérez</p>
+                <p class="res-court">Fútbol 1</p>
+              </div>
+              <div class="res-right">
+                <p class="res-time">10:00 - 11:00</p>
+                <span class="badge confirmed">Confirmada</span>
+              </div>
+            </div>
+            <div class="reservation-item">
+              <div class="res-info">
+                <p class="res-name">María González</p>
+                <p class="res-court">Tenis 2</p>
+              </div>
+              <div class="res-right">
+                <p class="res-time">11:00 - 12:00</p>
+                <span class="badge confirmed">Confirmada</span>
+              </div>
+            </div>
+            <div class="reservation-item">
+              <div class="res-info">
+                <p class="res-name">Carlos Rodríguez</p>
+                <p class="res-court">Baloncesto 1</p>
+              </div>
+              <div class="res-right">
+                <p class="res-time">14:00 - 15:30</p>
+                <span class="badge pending">Pendiente</span>
+              </div>
+            </div>
+            <div class="reservation-item">
+              <div class="res-info">
+                <p class="res-name">Ana Martínez</p>
+                <p class="res-court">Baloncesto 1</p>
+              </div>
+              <div class="res-right">
+                <p class="res-time">15:00 - 16:30</p>
+                <span class="badge confirmed">Confirmada</span>
+              </div>
+            </div>
+            <div class="reservation-item">
+              <div class="res-info">
+                <p class="res-name">Luis Sánchez</p>
+                <p class="res-court">Voleibol 1</p>
+              </div>
+              <div class="res-right">
+                <p class="res-time">17:00 - 18:00</p>
+                <span class="badge confirmed">Confirmada</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <h3 class="dash-card-title">Alertas de Inventario</h3>
+          </div>
+          <div class="alert-list">
+            <div class="inventory-alert">
+              <div class="alert-top">
+                <p class="alert-name">Balones de Fútbol</p>
+                <span class="badge stock-low">Stock Bajo</span>
+              </div>
+              <p class="alert-detail">Stock actual: 3 · Mínimo: 10</p>
+              <div class="alert-bar-bg"><div class="alert-bar" style="width:30%"></div></div>
+            </div>
+            <div class="inventory-alert">
+              <div class="alert-top">
+                <p class="alert-name">Redes de Voleibol</p>
+                <span class="badge stock-low">Stock Bajo</span>
+              </div>
+              <p class="alert-detail">Stock actual: 1 · Mínimo: 3</p>
+              <div class="alert-bar-bg"><div class="alert-bar" style="width:33%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESERVAS ===== -->
+    <section id="section-reservas" class="content-section hidden">
+
+      <!-- Admin tabs -->
+      <div class="admin-tabs-bar">
+        <div class="admin-tabs">
+          <button class="admin-tab active" id="atab-calendario" onclick="switchAdminTab('calendario')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Calendario
+          </button>
+          <button class="admin-tab" id="atab-gestion" onclick="switchAdminTab('gestion')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Gestión de Reservas
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel Calendario -->
+      <div id="apanel-calendario" class="apanel">
+        <div class="reservas-filters">
+        <div class="filter-group">
+          <label>Fecha</label>
+          <input type="date" id="reservas-date" value="2026-02-16" class="filter-input" onchange="renderCalendar()" />
+        </div>
+        <div class="filter-group">
+          <label>Deporte</label>
+          <select id="reservas-sport" class="filter-select" onchange="renderCalendar()">
+            <option value="all">Todos los Deportes</option>
+            <option value="futbol">Fútbol</option>
+            <option value="tenis">Tenis</option>
+            <option value="baloncesto">Baloncesto</option>
+            <option value="voleibol">Voleibol</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Buscar Cliente</label>
+          <div class="search-input-wrap">
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Buscar por nombre..." class="filter-input search-with-icon" id="reservas-search" oninput="renderCalendar()" />
+          </div>
+        </div>
+        </div>
+
+        <div class="cal-header">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span id="cal-title">Calendario de Reservas – 2026-02-16</span>
+        </div>
+
+        <div class="calendar-wrap">
+          <div class="calendar-table-container">
+            <table class="calendar-table" id="calendar-table">
+              <thead>
+                <tr id="cal-head-row">
+                  <th class="cal-court-col">Cancha</th>
+                </tr>
+              </thead>
+              <tbody id="cal-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel Gestión -->
+      <div id="apanel-gestion" class="apanel hidden">
+        <div class="mgmt-toolbar">
+          <div class="mgmt-filters">
+            <div class="search-input-wrap">
+              <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" class="filter-input search-with-icon" placeholder="Buscar cliente..." id="mgmt-search" oninput="renderAdminResTable()" style="width:220px" />
+            </div>
+            <select class="filter-select" id="mgmt-status" onchange="renderAdminResTable()" style="width:160px">
+              <option value="all">Todos los estados</option>
+              <option value="confirmed">Confirmadas</option>
+              <option value="cancelled">Canceladas</option>
+            </select>
+          </div>
+          <button class="btn-add-new" onclick="openNewResModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nueva Reserva
+          </button>
+        </div>
+
+        <div class="inv-table-wrap">
+          <div class="inv-table-header">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span id="mgmt-count">Todas las Reservas</span>
+          </div>
+          <table class="inv-table">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Cancha</th>
+                <th>Fecha</th>
+                <th>Horario</th>
+                <th>Deporte</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="mgmt-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INVENTARIO ===== -->
+    <section id="section-inventario" class="content-section hidden">
+      <div class="section-action-bar">
+        <div>
+          <h2 class="section-title">Inventario</h2>
+          <p class="section-sub">Gestión de productos y stock</p>
+        </div>
+        <button class="btn-add-new" onclick="openProductModal(null)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nuevo Producto
+        </button>
+      </div>
+      <div class="alert-banner">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>
+          <p class="alert-banner-title">Atención: 3 productos con stock bajo</p>
+          <p class="alert-banner-sub">Se recomienda reabastecer los siguientes productos</p>
+        </div>
+      </div>
+
+      <div class="inv-filters">
+        <div class="filter-group">
+          <label>Buscar Producto</label>
+          <div class="search-input-wrap">
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Buscar por nombre..." class="filter-input search-with-icon" id="inv-search" oninput="filterInventory()" />
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>Categoría</label>
+          <select class="filter-select" id="inv-cat" onchange="filterInventory()">
+            <option value="all">Todas las Categorías</option>
+            <option value="Balones">Balones</option>
+            <option value="Equipamiento">Equipamiento</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Calzado">Calzado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="inv-table-wrap">
+        <div class="inv-table-header">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <span id="inv-count">Lista de Productos (8)</span>
+        </div>
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Stock</th>
+              <th>Estado</th>
+              <th>Ubicación</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="inv-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== CANCHAS ===== -->
+    <section id="section-canchas" class="content-section hidden">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Activas</p>
+              <p class="stat-value">5</p>
+            </div>
+            <div class="stat-icon green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Mantenimiento</p>
+              <p class="stat-value">1</p>
+            </div>
+            <div class="stat-icon yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Total Canchas</p>
+              <p class="stat-value">6</p>
+            </div>
+            <div class="stat-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div>
+              <p class="stat-label">Ocupación Hoy</p>
+              <p class="stat-value">68%</p>
+            </div>
+            <div class="stat-icon purple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-action-bar" style="margin-bottom:16px">
+        <div></div>
+        <button class="btn-add-new" onclick="openCanchaModal(null)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nueva Cancha
+        </button>
+      </div>
+      <div class="canchas-grid" id="canchas-grid"></div>
+
+      <!-- Modal Cancha (Editar / Nueva) -->
+      <div id="modal-cancha" class="modal-overlay hidden" onclick="closeModal(event)">
+        <div class="modal-box">
+          <div class="modal-header">
+            <h3 id="modal-title">Editar Cancha</h3>
+            <button class="modal-close" onclick="document.getElementById('modal-cancha').classList.add('hidden')">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" id="m-name" class="filter-input" />
+              </div>
+              <div class="form-group">
+                <label>Estado</label>
+                <select id="m-status" class="filter-select">
+                  <option value="Activo">Activo</option>
+                  <option value="Mantenimiento">Mantenimiento</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Superficie</label>
+                <input type="text" id="m-surface" class="filter-input" />
+              </div>
+              <div class="form-group">
+                <label>Dimensiones</label>
+                <input type="text" id="m-dims" class="filter-input" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Capacidad</label>
+                <input type="text" id="m-cap" class="filter-input" />
+              </div>
+              <div class="form-group">
+                <label>Tarifa/Hora</label>
+                <input type="text" id="m-rate" class="filter-input" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Deporte</label>
+                <select id="m-sport" class="filter-select">
+                  <option value="futbol">Fútbol</option>
+                  <option value="tenis">Tenis</option>
+                  <option value="baloncesto">Baloncesto</option>
+                  <option value="voleibol">Voleibol</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tipo</label>
+                <input type="text" id="m-type" class="filter-input" placeholder="Ej: Fútbol - Fútbol 5" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group" style="flex-direction:row;align-items:center;gap:12px">
+                <label style="margin:0">Iluminación</label>
+                <input type="checkbox" id="m-light" style="width:18px;height:18px;cursor:pointer" />
+              </div>
+              <div class="form-group" style="flex-direction:row;align-items:center;gap:12px">
+                <label style="margin:0">Techada</label>
+                <input type="checkbox" id="m-covered" style="width:18px;height:18px;cursor:pointer" />
+              </div>
+            </div>
+            <button class="btn-login" style="width:100%;margin-top:8px" onclick="saveCancha()">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===================== USER PORTAL ===================== -->
+<div id="page-user" class="page hidden">
+
+  <!-- USER NAVBAR -->
+  <nav class="u-navbar">
+    <div class="u-nav-brand">
+      <div class="u-nav-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div>
+        <div class="u-brand-name">DeportivosPro</div>
+        <div class="u-brand-sub">Portal del Cliente</div>
+      </div>
+    </div>
+
+    <div class="u-nav-links">
+      <button class="u-nav-link active" id="u-nav-inicio" onclick="userShowPage('inicio')">Inicio</button>
+      <button class="u-nav-link" id="u-nav-misreservas" onclick="userShowPage('misreservas')">Mis Reservas</button>
+      <button class="u-nav-link" id="u-nav-reservar" onclick="userShowPage('reservar')">Reservar Cancha</button>
+      <button class="u-nav-link" id="u-nav-perfil" onclick="userShowPage('perfil')">Mi Perfil</button>
+    </div>
+
+    <div class="u-nav-right">
+      <div class="u-avatar" id="u-avatar-initials">JP</div>
+      <span class="u-nav-username" id="u-nav-username">Juan Pérez</span>
+      <button class="u-btn-logout" onclick="doLogout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Salir
+      </button>
+    </div>
+  </nav>
+
+  <main class="u-main">
+
+    <!-- ===== INICIO ===== -->
+    <section id="u-section-inicio" class="u-section active">
+
+      <!-- Welcome banner -->
+      <div class="u-welcome-banner">
+        <div class="u-welcome-text">
+          <p class="u-welcome-greeting" id="u-greeting">¡Hola de nuevo, Juan! 👋</p>
+          <p class="u-welcome-sub">Aquí tienes un resumen de tu actividad en DeportivosPro.</p>
+        </div>
+        <button class="u-btn-primary" onclick="userShowPage('reservar')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nueva Reserva
+        </button>
+      </div>
+
+      <!-- Personal stats -->
+      <div class="u-stats-grid">
+        <div class="u-stat-card">
+          <div class="u-stat-icon" style="background:#EFF6FF;color:#2563EB">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <p class="u-stat-label">Total Reservas</p>
+            <p class="u-stat-value" id="u-stat-total">0</p>
+          </div>
+        </div>
+        <div class="u-stat-card">
+          <div class="u-stat-icon" style="background:#ECFDF5;color:#10B981">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <p class="u-stat-label">Horas Jugadas</p>
+            <p class="u-stat-value" id="u-stat-hours">0h</p>
+          </div>
+        </div>
+        <div class="u-stat-card">
+          <div class="u-stat-icon" style="background:#F5F3FF;color:#8B5CF6">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <p class="u-stat-label">Deporte Favorito</p>
+            <p class="u-stat-value" id="u-stat-sport" style="font-size:16px">—</p>
+          </div>
+        </div>
+        <div class="u-stat-card">
+          <div class="u-stat-icon" style="background:#FFFBEB;color:#F59E0B">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <p class="u-stat-label">Cancha Preferida</p>
+            <p class="u-stat-value" id="u-stat-court" style="font-size:14px;line-height:1.3">—</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two columns -->
+      <div class="u-grid-2">
+
+        <!-- Upcoming -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <h3>Próximas Reservas</h3>
+          </div>
+          <div id="u-upcoming-list" class="u-res-list"></div>
+        </div>
+
+        <!-- Activity chart / history -->
+        <div class="u-card">
+          <div class="u-card-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <h3>Actividad Reciente</h3>
+          </div>
+          <div class="u-sport-bars" id="u-sport-bars"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== MIS RESERVAS ===== -->
+    <section id="u-section-misreservas" class="u-section hidden">
+      <div class="u-section-head">
+        <div>
+          <h2 class="u-section-title">Mis Reservas</h2>
+          <p class="u-section-sub">Historial completo de tus reservas</p>
+        </div>
+        <button class="u-btn-primary" onclick="userShowPage('reservar')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nueva Reserva
+        </button>
+      </div>
+
+      <div class="u-tabs">
+        <button class="u-tab active" id="u-tab-upcoming" onclick="switchTab('upcoming')">Próximas</button>
+        <button class="u-tab" id="u-tab-past" onclick="switchTab('past')">Historial</button>
+      </div>
+
+      <div id="u-myres-list" class="u-myres-list"></div>
+    </section>
+
+    <!-- ===== RESERVAR CANCHA ===== -->
+    <section id="u-section-reservar" class="u-section hidden">
+      <div class="u-section-head">
+        <div>
+          <h2 class="u-section-title">Reservar Cancha</h2>
+          <p class="u-section-sub">Selecciona la cancha, fecha y horario que prefieras</p>
+        </div>
+      </div>
+
+      <!-- Step 1: Select sport -->
+      <div class="u-book-step">
+        <p class="u-step-label">1 · Elige el deporte</p>
+        <div class="u-sport-selector" id="u-sport-selector">
+          <button class="u-sport-btn active" data-sport="futbol" onclick="selectSport('futbol', this)">
+            <span class="u-sport-emoji">⚽</span>
+            <span>Fútbol</span>
+          </button>
+          <button class="u-sport-btn" data-sport="tenis" onclick="selectSport('tenis', this)">
+            <span class="u-sport-emoji">🎾</span>
+            <span>Tenis</span>
+          </button>
+          <button class="u-sport-btn" data-sport="baloncesto" onclick="selectSport('baloncesto', this)">
+            <span class="u-sport-emoji">🏀</span>
+            <span>Baloncesto</span>
+          </button>
+          <button class="u-sport-btn" data-sport="voleibol" onclick="selectSport('voleibol', this)">
+            <span class="u-sport-emoji">🏐</span>
+            <span>Voleibol</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Select court -->
+      <div class="u-book-step">
+        <p class="u-step-label">2 · Selecciona la cancha</p>
+        <div class="u-court-cards" id="u-court-cards"></div>
+      </div>
+
+      <!-- Step 3: Date & time -->
+      <div class="u-book-step">
+        <p class="u-step-label">3 · Fecha y horario</p>
+        <div class="u-datetime-row">
+          <div class="filter-group">
+            <label>Fecha</label>
+            <input type="date" id="u-book-date" class="filter-input" value="2026-04-15" />
+          </div>
+          <div class="filter-group">
+            <label>Hora inicio</label>
+            <select id="u-book-start" class="filter-select">
+              <option value="8">08:00</option>
+              <option value="9">09:00</option>
+              <option value="10" selected>10:00</option>
+              <option value="11">11:00</option>
+              <option value="12">12:00</option>
+              <option value="13">13:00</option>
+              <option value="14">14:00</option>
+              <option value="15">15:00</option>
+              <option value="16">16:00</option>
+              <option value="17">17:00</option>
+              <option value="18">18:00</option>
+              <option value="19">19:00</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Duración</label>
+            <select id="u-book-dur" class="filter-select">
+              <option value="1">1 hora</option>
+              <option value="1.5">1.5 horas</option>
+              <option value="2">2 horas</option>
+              <option value="3">3 horas</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary + confirm -->
+      <div class="u-book-summary" id="u-book-summary">
+        <div class="u-summary-content" id="u-summary-content">Selecciona una cancha para ver el resumen</div>
+        <button class="u-btn-primary" id="u-btn-confirm" onclick="confirmBooking()" disabled style="opacity:0.5;cursor:not-allowed">
+          Confirmar Reserva
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== MI PERFIL ===== -->
+    <section id="u-section-perfil" class="u-section hidden">
+      <h2 class="u-section-title" style="margin-bottom:24px">Mi Perfil</h2>
+
+      <div class="u-profile-grid">
+
+        <!-- Profile card -->
+        <div class="u-card u-profile-card">
+          <div class="u-avatar-lg" id="u-avatar-lg">JP</div>
+          <h3 class="u-profile-name" id="u-profile-name">Juan Pérez</h3>
+          <p class="u-profile-email" id="u-profile-email">juan@mail.com</p>
+          <span class="badge active" style="font-size:12px;padding:4px 12px">Cliente Activo</span>
+
+          <div class="u-profile-meta">
+            <div class="u-meta-item">
+              <span class="u-meta-label">Miembro desde</span>
+              <span class="u-meta-val" id="u-member-since">—</span>
+            </div>
+            <div class="u-meta-item">
+              <span class="u-meta-label">Teléfono</span>
+              <span class="u-meta-val" id="u-profile-phone">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit form -->
+        <div class="u-card">
+          <div class="u-card-header" style="margin-bottom:16px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <h3>Editar Información</h3>
+          </div>
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" id="u-edit-name" class="filter-input" />
+          </div>
+          <div class="form-group" style="margin-top:12px">
+            <label>Teléfono</label>
+            <input type="text" id="u-edit-phone" class="filter-input" />
+          </div>
+          <div class="form-group" style="margin-top:12px">
+            <label>Correo electrónico</label>
+            <input type="email" id="u-edit-email" class="filter-input" />
+          </div>
+          <div class="form-group" style="margin-top:12px">
+            <label>Deporte favorito</label>
+            <select id="u-edit-sport" class="filter-select">
+              <option value="Fútbol">Fútbol</option>
+              <option value="Tenis">Tenis</option>
+              <option value="Baloncesto">Baloncesto</option>
+              <option value="Voleibol">Voleibol</option>
+            </select>
+          </div>
+          <button class="u-btn-primary" style="margin-top:20px;width:100%" onclick="saveProfile()">
+            Guardar Cambios
+          </button>
+        </div>
+
+        <!-- Achievements -->
+        <div class="u-card u-achievements-card">
+          <div class="u-card-header" style="margin-bottom:16px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <h3>Logros</h3>
+          </div>
+          <div class="u-achievements" id="u-achievements"></div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- BOOKING MODAL -->
+<!-- MODAL: Nueva Reserva (Admin) -->
+<div id="modal-new-res" class="modal-overlay hidden" onclick="closeNewResModal(event)">
+  <div class="modal-box" style="max-width:520px">
+    <div class="modal-header">
+      <h3>Nueva Reserva</h3>
+      <button class="modal-close" onclick="document.getElementById('modal-new-res').classList.add('hidden')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-section-label">Datos del cliente</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre completo <span style="color:var(--red)">*</span></label>
+          <input type="text" id="nr-client" class="filter-input" placeholder="Ej: Pedro Ramírez" />
+        </div>
+        <div class="form-group">
+          <label>Teléfono <span class="opt-label">(opcional)</span></label>
+          <input type="tel" id="nr-phone" class="filter-input" placeholder="+57 300 123 4567" />
+        </div>
+      </div>
+      <p class="modal-section-label" style="margin-top:4px">Detalles de la reserva</p>
+      <div class="form-group" style="margin-bottom:12px">
+        <label>Cancha <span style="color:var(--red)">*</span></label>
+        <select id="nr-court" class="filter-select" onchange="updateNewResPreview()"></select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha <span style="color:var(--red)">*</span></label>
+          <input type="date" id="nr-date" class="filter-input" onchange="updateNewResPreview()" />
+        </div>
+        <div class="form-group">
+          <label>Hora de inicio</label>
+          <select id="nr-start" class="filter-select" onchange="updateNewResPreview()">
+            <option value="7">07:00</option><option value="8">08:00</option>
+            <option value="9">09:00</option><option value="10" selected>10:00</option>
+            <option value="11">11:00</option><option value="12">12:00</option>
+            <option value="13">13:00</option><option value="14">14:00</option>
+            <option value="15">15:00</option><option value="16">16:00</option>
+            <option value="17">17:00</option><option value="18">18:00</option>
+            <option value="19">19:00</option><option value="20">20:00</option>
+            <option value="21">21:00</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Duración</label>
+          <select id="nr-dur" class="filter-select" onchange="updateNewResPreview()">
+            <option value="0.5">30 min</option>
+            <option value="1" selected>1 hora</option>
+            <option value="1.5">1h 30min</option>
+            <option value="2">2 horas</option>
+            <option value="2.5">2h 30min</option>
+            <option value="3">3 horas</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:12px">
+        <label>Notas <span class="opt-label">(opcional)</span></label>
+        <textarea id="nr-notes" rows="2" class="modal-textarea" placeholder="Ej: Pago en efectivo, cliente frecuente..."></textarea>
+      </div>
+      <div id="nr-preview" class="res-preview-box">
+        Selecciona cancha y duración para ver el precio
+      </div>
+      <button class="btn-login" style="width:100%;margin-top:10px" onclick="saveNewAdminRes()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Confirmar Reserva
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Cancelar Reserva (Admin) -->
+<div id="modal-cancel-res" class="modal-overlay hidden" onclick="closeCancelModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Cancelar Reserva</h3>
+      <button class="modal-close" onclick="document.getElementById('modal-cancel-res').classList.add('hidden')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="cancel-res-info" style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:12px;font-size:13px;color:var(--gray-700);margin-bottom:4px"></div>
+      <div class="form-group">
+        <label>Motivo de cancelación <span style="color:var(--red)">*</span></label>
+        <textarea id="cancel-reason-input" rows="3" style="border:1.5px solid var(--gray-200);border-radius:8px;padding:10px;font-size:13px;font-family:inherit;resize:vertical;outline:none;width:100%;transition:border-color 0.2s" placeholder="Ej: Cancha en mantenimiento, cliente solicitó cambio..."></textarea>
+      </div>
+      <button class="btn-login" style="width:100%;margin-top:4px;background:#DC2626" onclick="confirmCancelRes()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        Confirmar Cancelación
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Nuevo / Editar Producto -->
+<div id="modal-product" class="modal-overlay hidden" onclick="closeProductModalOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="product-modal-title">Nuevo Producto</h3>
+      <button class="modal-close" onclick="document.getElementById('modal-product').classList.add('hidden')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre del producto</label>
+          <input type="text" id="p-name" class="filter-input" placeholder="Ej: Balones de Fútbol" />
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="p-cat" class="filter-select">
+            <option value="Balones">Balones</option>
+            <option value="Equipamiento">Equipamiento</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Calzado">Calzado</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Stock inicial</label>
+          <input type="number" id="p-stock" class="filter-input" min="0" value="0" />
+        </div>
+        <div class="form-group">
+          <label>Stock mínimo</label>
+          <input type="number" id="p-min" class="filter-input" min="0" value="5" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="text" id="p-price" class="filter-input" placeholder="Ej: $29.99" />
+        </div>
+        <div class="form-group">
+          <label>Ubicación</label>
+          <input type="text" id="p-location" class="filter-input" placeholder="Ej: Almacén A" />
+        </div>
+      </div>
+      <button class="btn-login" style="width:100%;margin-top:4px" onclick="saveProduct()">Guardar Producto</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-booking" class="modal-overlay hidden" onclick="closeBookingModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>✅ Reserva Confirmada</h3>
+      <button class="modal-close" onclick="document.getElementById('modal-booking').classList.add('hidden')">✕</button>
+    </div>
+    <div class="modal-body" style="text-align:center;gap:12px">
+      <div style="font-size:48px">🎉</div>
+      <p id="booking-confirm-msg" style="font-size:14px;color:#374151;line-height:1.6"></p>
+      <button class="u-btn-primary" style="width:100%;margin-top:8px" onclick="document.getElementById('modal-booking').classList.add('hidden');userShowPage('misreservas')">
+        Ver Mis Reservas
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
