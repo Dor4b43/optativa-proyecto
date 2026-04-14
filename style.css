@@ -1,6 +1,4 @@
-/* ============================================================
-   DeportivosPro — Global Styles
-   ============================================================ */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -37,9 +35,6 @@ html, body {
 .page.hidden { display: none; }
 .hidden      { display: none !important; }
 
-/* ============================================================
-   LOGIN PAGE
-   ============================================================ */
 .login-bg {
   min-height: 100vh;
   background: linear-gradient(135deg, #1a56db 0%, #2563EB 40%, #1e40af 100%);
@@ -214,9 +209,6 @@ html, body {
   padding-left: 20px;
 }
 
-/* ============================================================
-   NAVBAR
-   ============================================================ */
 .navbar {
   height: 56px;
   background: white;
@@ -330,9 +322,6 @@ html, body {
 
 .btn-logout:hover { background: #FEF2F2; border-color: #FECACA; color: var(--red); }
 
-/* ============================================================
-   MAIN CONTENT
-   ============================================================ */
 .main-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -346,9 +335,6 @@ html, body {
 .section-title   { font-size: 22px; font-weight: 700; color: var(--gray-900); }
 .section-sub     { font-size: 13px; color: var(--gray-500); margin-top: 3px; }
 
-/* ============================================================
-   STATS CARDS
-   ============================================================ */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -394,9 +380,6 @@ html, body {
 .stat-change.negative { color: var(--red); }
 .stat-change.neutral  { color: var(--gray-500); }
 
-/* ============================================================
-   DASHBOARD GRID
-   ============================================================ */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -445,7 +428,6 @@ html, body {
   align-items: flex-end;
 }
 
-/* Badges */
 .badge {
   display: inline-block;
   padding: 2px 9px;
@@ -490,9 +472,6 @@ html, body {
   border-radius: 4px;
 }
 
-/* ============================================================
-   RESERVAS / CALENDAR
-   ============================================================ */
 .reservas-filters {
   display: flex;
   gap: 16px;
@@ -599,9 +578,6 @@ html, body {
 .cal-reservation.baloncesto { background: #F59E0B; }
 .cal-reservation.voleibol { background: #8B5CF6; }
 
-/* ============================================================
-   INVENTARIO
-   ============================================================ */
 .alert-banner {
   display: flex;
   align-items: flex-start;
@@ -695,9 +671,6 @@ html, body {
 .action-btn.edit:hover   { background: #EFF6FF; border-color: #BFDBFE; color: var(--blue); }
 .action-btn.delete:hover { background: #FEF2F2; border-color: #FECACA; color: var(--red); }
 
-/* ============================================================
-   CANCHAS
-   ============================================================ */
 .canchas-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -802,9 +775,6 @@ html, body {
 }
 .btn-del-cancha:hover { background: #FEF2F2; border-color: #FECACA; color: var(--red); }
 
-/* ============================================================
-   MODAL
-   ============================================================ */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -852,9 +822,6 @@ html, body {
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (max-width: 900px) {
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .dashboard-grid { grid-template-columns: 1fr; }
@@ -872,9 +839,6 @@ html, body {
   .form-row { grid-template-columns: 1fr; }
 }
 
-/* ============================================================
-   ADMIN TABS (Reservas: Calendario / Gestión)
-   ============================================================ */
 .admin-tabs-bar {
   margin-bottom: 20px;
   border-bottom: 1px solid var(--gray-200);
@@ -905,9 +869,6 @@ html, body {
 .apanel        { display: block; }
 .apanel.hidden { display: none;  }
 
-/* ============================================================
-   SECTION ACTION BAR
-   ============================================================ */
 .section-action-bar {
   display: flex;
   align-items: flex-start;
@@ -936,9 +897,6 @@ html, body {
 .btn-add-new:hover  { background: var(--blue-dark); transform: translateY(-1px); }
 .btn-add-new:active { transform: translateY(0); }
 
-/* ============================================================
-   STOCK INLINE CONTROLS
-   ============================================================ */
 .stock-controls {
   display: flex;
   align-items: center;
@@ -975,9 +933,6 @@ html, body {
   text-align: center;
 }
 
-/* ============================================================
-   MANAGEMENT TOOLBAR
-   ============================================================ */
 .mgmt-toolbar {
   margin-bottom: 16px;
   display: flex;
@@ -1006,7 +961,6 @@ html, body {
   white-space: nowrap;
 }
 
-/* Nueva Reserva modal helpers */
 .modal-section-label {
   font-size: 11px;
   font-weight: 700;
@@ -1051,9 +1005,6 @@ html, body {
   .mgmt-filters       { flex-direction: column; align-items: flex-start; }
 }
 
-/* ============================================================
-   CREDENTIALS BOX EXTRAS
-   ============================================================ */
 .cred-section-label {
   font-size: 10.5px;
   font-weight: 700;
@@ -1064,9 +1015,6 @@ html, body {
   margin-bottom: 2px;
 }
 
-/* ============================================================
-   USER PORTAL — NAVBAR
-   ============================================================ */
 .u-navbar {
   height: 60px;
   background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 100%);
@@ -1172,9 +1120,6 @@ html, body {
 
 .u-btn-logout:hover { background: rgba(255,255,255,0.22); color: white; }
 
-/* ============================================================
-   USER PORTAL — MAIN
-   ============================================================ */
 .u-main {
   max-width: 1200px;
   margin: 0 auto;
@@ -1195,7 +1140,6 @@ html, body {
 .u-section-title { font-size: 22px; font-weight: 700; color: var(--gray-900); }
 .u-section-sub   { font-size: 13px; color: var(--gray-500); margin-top: 3px; }
 
-/* Welcome Banner */
 .u-welcome-banner {
   background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 50%, #4338CA 100%);
   border-radius: 14px;
@@ -1234,7 +1178,6 @@ html, body {
 .u-welcome-greeting { font-size: 20px; font-weight: 700; color: white; margin-bottom: 4px; }
 .u-welcome-sub      { font-size: 13px; color: rgba(255,255,255,0.75); }
 
-/* Primary button */
 .u-btn-primary {
   display: inline-flex;
   align-items: center;
@@ -1256,7 +1199,6 @@ html, body {
 .u-btn-primary:hover  { background: #EFF6FF; transform: translateY(-1px); }
 .u-btn-primary:active { transform: translateY(0); }
 
-/* User stat cards */
 .u-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1291,14 +1233,12 @@ html, body {
 .u-stat-label { font-size: 11.5px; color: var(--gray-500); font-weight: 500; margin-bottom: 4px; }
 .u-stat-value { font-size: 26px; font-weight: 700; color: var(--gray-900); line-height: 1; }
 
-/* 2-col grid */
 .u-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* Generic card */
 .u-card {
   background: white;
   border-radius: var(--radius);
@@ -1316,7 +1256,6 @@ html, body {
 
 .u-card-header h3 { font-size: 14px; font-weight: 600; color: var(--gray-900); }
 
-/* Upcoming reservations list */
 .u-res-list {}
 
 .u-res-item {
@@ -1352,7 +1291,6 @@ html, body {
 
 .u-empty-icon { font-size: 32px; margin-bottom: 8px; }
 
-/* Sport bars (activity) */
 .u-sport-bars { display: flex; flex-direction: column; gap: 14px; }
 
 .u-sport-bar-item {}
@@ -1379,7 +1317,6 @@ html, body {
   transition: width 0.5s ease;
 }
 
-/* Tabs */
 .u-tabs {
   display: flex;
   gap: 4px;
@@ -1405,7 +1342,6 @@ html, body {
 
 .u-tab.active { background: white; color: var(--gray-900); font-weight: 600; box-shadow: var(--shadow); }
 
-/* My reservations list */
 .u-myres-list { display: flex; flex-direction: column; gap: 12px; }
 
 .u-myres-card {
@@ -1459,9 +1395,6 @@ html, body {
 
 .u-btn-cancel:hover { background: #FEE2E2; }
 
-/* ============================================================
-   USER PORTAL — BOOKING
-   ============================================================ */
 .u-book-step {
   background: white;
   border-radius: var(--radius);
@@ -1569,9 +1502,6 @@ html, body {
 .u-summary-content { font-size: 13.5px; color: var(--gray-600); flex: 1; }
 .u-summary-content strong { color: var(--gray-900); }
 
-/* ============================================================
-   USER PORTAL — PROFILE
-   ============================================================ */
 .u-profile-grid {
   display: grid;
   grid-template-columns: 240px 1fr 280px;
@@ -1617,7 +1547,6 @@ html, body {
 .u-meta-label { font-size: 11px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
 .u-meta-val   { font-size: 13.5px; font-weight: 600; color: var(--gray-900); }
 
-/* Achievements */
 .u-achievements { display: flex; flex-direction: column; gap: 10px; }
 
 .u-achievement {
@@ -1635,9 +1564,6 @@ html, body {
 .u-achievement-desc { font-size: 11.5px; color: var(--gray-400); }
 .u-achievement.locked { opacity: 0.4; }
 
-/* ============================================================
-   USER PORTAL RESPONSIVE
-   ============================================================ */
 @media (max-width: 1024px) {
   .u-profile-grid { grid-template-columns: 1fr 1fr; }
   .u-achievements-card { grid-column: 1 / -1; }

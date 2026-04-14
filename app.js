@@ -1,8 +1,5 @@
-/* ============================================================
-   DeportivosPro — Application Logic
-   ============================================================ */
 
-// ===== AUTH DATA =====
+
 const USERS = [
   { email: 'admin@deportivospro.com', password: 'admin123', role: 'Administrador', type: 'admin' },
   { email: 'staff@deportivospro.com', password: 'staff123', role: 'Staff',          type: 'admin' },
@@ -13,7 +10,6 @@ const USERS = [
 
 let currentUser = null;
 
-// ===== LOGIN =====
 function doLogin() {
   const email = document.getElementById('email-input').value.trim();
   const pass  = document.getElementById('pass-input').value;
@@ -31,7 +27,7 @@ function doLogin() {
   document.getElementById('page-login').classList.add('hidden');
 
   if (user.type === 'user') {
-    // Load user-specific data
+    
     const udata = USER_DATA[user.userId];
     const initials = user.role.split(' ').map(w => w[0]).slice(0,2).join('');
     document.getElementById('u-nav-username').textContent   = user.role;
@@ -59,19 +55,18 @@ function doLogout() {
   document.getElementById('page-login').classList.remove('hidden');
   document.getElementById('page-app').classList.add('hidden');
   document.getElementById('page-user').classList.add('hidden');
-  // reset user nav
+  
   document.querySelectorAll('.u-nav-link').forEach(l => l.classList.remove('active'));
   document.querySelectorAll('.u-section').forEach(s => { s.classList.remove('active'); s.classList.add('hidden'); });
 }
 
-// ===== NAVIGATION =====
 function showPage(page) {
-  // Hide all sections
+  
   document.querySelectorAll('.content-section').forEach(s => {
     s.classList.remove('active');
     s.classList.add('hidden');
   });
-  // Remove all active nav
+  
   document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
 
   const section = document.getElementById('section-' + page);
@@ -88,7 +83,6 @@ function showPage(page) {
   if (page === 'canchas')    renderCanchas();
 }
 
-// ===== DATA =====
 let adminReservations = [
   { id: 1,  client: 'Juan Pérez',       court: 'Fútbol 1',     sport: 'futbol',     date: '2026-02-16', start: 10, end: 11,   status: 'confirmed', cancelReason: null },
   { id: 2,  client: 'María González',   court: 'Fútbol 1',     sport: 'futbol',     date: '2026-02-16', start: 14, end: 15.5, status: 'confirmed', cancelReason: null },
@@ -104,7 +98,6 @@ let adminReservations = [
   { id: 12, client: 'Luis Sánchez',     court: 'Fútbol 2',     sport: 'futbol',     date: '2026-04-28', start: 8,  end: 9,    status: 'confirmed', cancelReason: null },
 ];
 
-// Keep the calendar-only array in sync (for the visual calendar)
 const reservations = adminReservations.map(r => ({ ...r, client: r.client }));
 
 const courts = [
@@ -127,7 +120,6 @@ let inventory = [
   { id: 8, name: 'Canastas de Baloncesto', category: 'Equipamiento',stock: 2,   min: 2,  location: 'Almacén B', price: '$199.99'},
 ];
 
-// ===== CALENDAR =====
 const HOURS = [8,9,10,11,12,13,14,15,16,17,18,19,20];
 const COURT_NAMES = ['Fútbol 1','Fútbol 2','Tenis 1','Tenis 2','Baloncesto 1','Voleibol 1'];
 const COURT_TYPES = {
@@ -147,7 +139,7 @@ function renderCalendar() {
 
   document.getElementById('cal-title').textContent = `Calendario de Reservas – ${dateVal}`;
 
-  // Header
+  
   const headRow = document.getElementById('cal-head-row');
   headRow.innerHTML = '<th class="cal-court-col">Cancha</th>';
   HOURS.forEach(h => {
@@ -165,13 +157,13 @@ function renderCalendar() {
 
     const tr = document.createElement('tr');
 
-    // Court cell
+    
     const tdCourt = document.createElement('td');
     tdCourt.className = 'cal-court-cell';
     tdCourt.innerHTML = `<p class="cal-court-name">${courtName}</p><p class="cal-court-type">${COURT_TYPES[courtName] || ''}</p>`;
     tr.appendChild(tdCourt);
 
-    // Hour cells
+    
     HOURS.forEach(h => {
       const td = document.createElement('td');
       td.style.position = 'relative';
@@ -200,7 +192,6 @@ function renderCalendar() {
   });
 }
 
-// ===== ADMIN RESERVATION MANAGEMENT =====
 let currentAdminTab = 'calendario';
 let cancellingResId = null;
 
@@ -295,20 +286,19 @@ function closeCancelModal(e) {
     document.getElementById('modal-cancel-res').classList.add('hidden');
 }
 
-// ===== NEW ADMIN RESERVATION =====
 function openNewResModal() {
-  // Reset fields
+  
   document.getElementById('nr-client').value = '';
   document.getElementById('nr-phone').value  = '';
   document.getElementById('nr-notes').value  = '';
   document.getElementById('nr-start').value  = '10';
   document.getElementById('nr-dur').value    = '1';
 
-  // Set today as default date
+  
   const today = new Date().toISOString().slice(0, 10);
   document.getElementById('nr-date').value = today;
 
-  // Populate court selector from courts array
+  
   const sel = document.getElementById('nr-court');
   sel.innerHTML = '';
   courts
@@ -355,7 +345,7 @@ function saveNewAdminRes() {
   const start   = parseFloat(document.getElementById('nr-start').value);
   const dur     = parseFloat(document.getElementById('nr-dur').value);
 
-  // Validate
+  
   if (!client) {
     document.getElementById('nr-client').style.borderColor = 'var(--red)';
     document.getElementById('nr-client').focus();
@@ -387,7 +377,7 @@ function saveNewAdminRes() {
     cancelReason: null,
     notes:        document.getElementById('nr-notes').value.trim() || null,
     price:        rate * dur,
-    walkIn:       true,   // flag: created by admin for walk-in customer
+    walkIn:       true,   
   });
 
   document.getElementById('modal-new-res').classList.add('hidden');
@@ -399,7 +389,6 @@ function closeNewResModal(e) {
     document.getElementById('modal-new-res').classList.add('hidden');
 }
 
-// ===== INVENTORY =====
 function getStockStatus(stock, min) {
   if (stock <= min * 0.4) return 'critic';
   if (stock < min) return 'low';
@@ -421,7 +410,7 @@ function filterInventory() {
 function renderInventory(data) {
   if (!data) data = inventory;
 
-  // Update low-stock alert banner
+  
   const lowCount = inventory.filter(i => i.stock < i.min).length;
   document.querySelector('.alert-banner-title').textContent =
     lowCount > 0 ? `Atención: ${lowCount} producto${lowCount > 1 ? 's' : ''} con stock bajo` : 'Stock en orden';
@@ -472,7 +461,7 @@ function adjustStock(id, delta) {
   if (!item) return;
   item.stock = Math.max(0, item.stock + delta);
 
-  // Update UI in place (no full re-render)
+  
   const numEl   = document.getElementById('stock-num-'  + id);
   const barEl   = document.getElementById('stock-bar-'  + id);
   const badgeEl = document.getElementById('stock-badge-'+ id);
@@ -491,7 +480,7 @@ function adjustStock(id, delta) {
     badgeEl.className   = 'badge ' + (status === 'normal' ? 'normal' : 'critic');
   }
 
-  // Refresh alert banner count
+  
   const lowCount = inventory.filter(i => i.stock < i.min).length;
   document.querySelector('.alert-banner-title').textContent =
     lowCount > 0 ? `Atención: ${lowCount} producto${lowCount > 1 ? 's' : ''} con stock bajo` : 'Stock en orden';
@@ -553,7 +542,6 @@ function deleteProduct(id) {
   filterInventory();
 }
 
-// ===== CANCHAS =====
 let editingCanchaId = null;
 
 function openCanchaModal(id) {
@@ -587,7 +575,6 @@ function openCanchaModal(id) {
   document.getElementById('modal-cancha').classList.remove('hidden');
 }
 
-// Keep backward compatibility for edit buttons rendered in HTML
 function openEditCancha(id) { openCanchaModal(id); }
 
 function renderCanchas() {
@@ -689,23 +676,16 @@ function closeModal(e) {
   }
 }
 
-// ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-  // nothing special needed
+  
 });
 
-// Allow Enter key on login
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !document.getElementById('page-login').classList.contains('hidden')) {
     doLogin();
   }
 });
 
-/* ==============================================================
-   USER PORTAL DATA
-   ============================================================== */
-
-// Unique per-user data
 const USER_DATA = {
   u1: {
     name: 'Juan Pérez',
@@ -782,9 +762,6 @@ let selectedCourtId = null;
 let currentTab      = 'upcoming';
 let selectedSport   = 'futbol';
 
-/* ==============================================================
-   USER PORTAL NAVIGATION
-   ============================================================== */
 function userShowPage(page) {
   document.querySelectorAll('.u-section').forEach(s => {
     s.classList.remove('active');
@@ -803,9 +780,6 @@ function userShowPage(page) {
   if (page === 'perfil')      renderProfile();
 }
 
-/* ==============================================================
-   USER DASHBOARD
-   ============================================================== */
 function getUserData() {
   if (!currentUser || currentUser.type !== 'user') return null;
   return USER_DATA[currentUser.userId];
@@ -815,11 +789,11 @@ function renderUserDashboard() {
   const udata = getUserData();
   if (!udata) return;
 
-  // Greeting
+  
   const firstName = udata.name.split(' ')[0];
   document.getElementById('u-greeting').textContent = `¡Hola de nuevo, ${firstName}! 👋`;
 
-  // Stats
+  
   const allRes   = udata.reservations;
   const totalHrs = allRes.reduce((sum, r) => sum + (r.end - r.start), 0);
   const sportCount = {};
@@ -836,7 +810,7 @@ function renderUserDashboard() {
   document.getElementById('u-stat-sport').textContent = favSport ? SPORT_LABELS[favSport[0]] : '—';
   document.getElementById('u-stat-court').textContent = favCourt ? favCourt[0] : '—';
 
-  // Upcoming
+  
   const today    = new Date().toISOString().slice(0,10);
   const upcoming = allRes.filter(r => r.date >= today && r.status === 'confirmed').slice(0,4);
   const upDiv    = document.getElementById('u-upcoming-list');
@@ -860,7 +834,7 @@ function renderUserDashboard() {
     });
   }
 
-  // Activity bars
+  
   const total = allRes.length || 1;
   const barsDiv = document.getElementById('u-sport-bars');
   barsDiv.innerHTML = '';
@@ -884,9 +858,6 @@ function renderUserDashboard() {
   }
 }
 
-/* ==============================================================
-   MY RESERVATIONS
-   ============================================================== */
 function renderMyReservations() {
   const udata = getUserData();
   if (!udata) return;
@@ -947,9 +918,6 @@ function cancelReservation(id) {
   renderUserDashboard();
 }
 
-/* ==============================================================
-   BOOKING FLOW
-   ============================================================== */
 function renderCourtPicker() {
   selectedCourtId = null;
   updateBookingSummary();
@@ -1057,14 +1025,11 @@ function closeBookingModal(e) {
   }
 }
 
-/* ==============================================================
-   PROFILE
-   ============================================================== */
 function renderProfile() {
   const udata = getUserData();
   if (!udata) return;
 
-  // Achievements
+  
   const div = document.getElementById('u-achievements');
   div.innerHTML = '';
   udata.achievements.forEach(a => {

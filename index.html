@@ -12,7 +12,6 @@
 </head>
 <body>
 
-<!-- ===================== LOGIN PAGE ===================== -->
 <div id="page-login" class="page active">
   <div class="login-bg">
     <div class="login-center">
@@ -82,9 +81,8 @@
   </div>
 </div>
 
-<!-- ===================== APP SHELL ===================== -->
 <div id="page-app" class="page hidden">
-  <!-- NAVBAR -->
+  
   <nav class="navbar">
     <div class="nav-brand">
       <div class="nav-brand-icon">
@@ -128,10 +126,10 @@
     </div>
   </nav>
 
-  <!-- CONTENT AREA -->
+  
   <main class="main-content">
 
-    <!-- ===== DASHBOARD ===== -->
+    
     <section id="section-dashboard" class="content-section active">
       <div class="section-header">
         <h2 class="section-title">Dashboard</h2>
@@ -276,10 +274,10 @@
       </div>
     </section>
 
-    <!-- ===== RESERVAS ===== -->
+    
     <section id="section-reservas" class="content-section hidden">
 
-      <!-- Admin tabs -->
+      
       <div class="admin-tabs-bar">
         <div class="admin-tabs">
           <button class="admin-tab active" id="atab-calendario" onclick="switchAdminTab('calendario')">
@@ -293,7 +291,7 @@
         </div>
       </div>
 
-      <!-- Panel Calendario -->
+      
       <div id="apanel-calendario" class="apanel">
         <div class="reservas-filters">
         <div class="filter-group">
@@ -338,7 +336,7 @@
         </div>
       </div>
 
-      <!-- Panel Gestión -->
+      
       <div id="apanel-gestion" class="apanel hidden">
         <div class="mgmt-toolbar">
           <div class="mgmt-filters">
@@ -381,7 +379,7 @@
       </div>
     </section>
 
-    <!-- ===== INVENTARIO ===== -->
+    
     <section id="section-inventario" class="content-section hidden">
       <div class="section-action-bar">
         <div>
@@ -443,7 +441,7 @@
       </div>
     </section>
 
-    <!-- ===== CANCHAS ===== -->
+    
     <section id="section-canchas" class="content-section hidden">
       <div class="stats-grid">
         <div class="stat-card">
@@ -501,7 +499,7 @@
       </div>
       <div class="canchas-grid" id="canchas-grid"></div>
 
-      <!-- Modal Cancha (Editar / Nueva) -->
+      
       <div id="modal-cancha" class="modal-overlay hidden" onclick="closeModal(event)">
         <div class="modal-box">
           <div class="modal-header">
@@ -577,10 +575,9 @@
   </main>
 </div>
 
-<!-- ===================== USER PORTAL ===================== -->
 <div id="page-user" class="page hidden">
 
-  <!-- USER NAVBAR -->
+  
   <nav class="u-navbar">
     <div class="u-nav-brand">
       <div class="u-nav-icon">
@@ -614,10 +611,10 @@
 
   <main class="u-main">
 
-    <!-- ===== INICIO ===== -->
+    
     <section id="u-section-inicio" class="u-section active">
 
-      <!-- Welcome banner -->
+      
       <div class="u-welcome-banner">
         <div class="u-welcome-text">
           <p class="u-welcome-greeting" id="u-greeting">¡Hola de nuevo, Juan! 👋</p>
@@ -629,7 +626,7 @@
         </button>
       </div>
 
-      <!-- Personal stats -->
+      
       <div class="u-stats-grid">
         <div class="u-stat-card">
           <div class="u-stat-icon" style="background:#EFF6FF;color:#2563EB">
@@ -669,10 +666,10 @@
         </div>
       </div>
 
-      <!-- Two columns -->
+      
       <div class="u-grid-2">
 
-        <!-- Upcoming -->
+        
         <div class="u-card">
           <div class="u-card-header">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -681,7 +678,7 @@
           <div id="u-upcoming-list" class="u-res-list"></div>
         </div>
 
-        <!-- Activity chart / history -->
+        
         <div class="u-card">
           <div class="u-card-header">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -693,7 +690,7 @@
       </div>
     </section>
 
-    <!-- ===== MIS RESERVAS ===== -->
+    
     <section id="u-section-misreservas" class="u-section hidden">
       <div class="u-section-head">
         <div>
@@ -714,7 +711,7 @@
       <div id="u-myres-list" class="u-myres-list"></div>
     </section>
 
-    <!-- ===== RESERVAR CANCHA ===== -->
+    
     <section id="u-section-reservar" class="u-section hidden">
       <div class="u-section-head">
         <div>
@@ -723,7 +720,7 @@
         </div>
       </div>
 
-      <!-- Step 1: Select sport -->
+      
       <div class="u-book-step">
         <p class="u-step-label">1 · Elige el deporte</p>
         <div class="u-sport-selector" id="u-sport-selector">
@@ -746,13 +743,13 @@
         </div>
       </div>
 
-      <!-- Step 2: Select court -->
+      
       <div class="u-book-step">
         <p class="u-step-label">2 · Selecciona la cancha</p>
         <div class="u-court-cards" id="u-court-cards"></div>
       </div>
 
-      <!-- Step 3: Date & time -->
+      
       <div class="u-book-step">
         <p class="u-step-label">3 · Fecha y horario</p>
         <div class="u-datetime-row">
@@ -789,7 +786,7 @@
         </div>
       </div>
 
-      <!-- Summary + confirm -->
+      
       <div class="u-book-summary" id="u-book-summary">
         <div class="u-summary-content" id="u-summary-content">Selecciona una cancha para ver el resumen</div>
         <button class="u-btn-primary" id="u-btn-confirm" onclick="confirmBooking()" disabled style="opacity:0.5;cursor:not-allowed">
@@ -798,13 +795,13 @@
       </div>
     </section>
 
-    <!-- ===== MI PERFIL ===== -->
+    
     <section id="u-section-perfil" class="u-section hidden">
       <h2 class="u-section-title" style="margin-bottom:24px">Mi Perfil</h2>
 
       <div class="u-profile-grid">
 
-        <!-- Profile card -->
+        
         <div class="u-card u-profile-card">
           <div class="u-avatar-lg" id="u-avatar-lg">JP</div>
           <h3 class="u-profile-name" id="u-profile-name">Juan Pérez</h3>
@@ -823,7 +820,7 @@
           </div>
         </div>
 
-        <!-- Edit form -->
+        
         <div class="u-card">
           <div class="u-card-header" style="margin-bottom:16px">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -855,7 +852,7 @@
           </button>
         </div>
 
-        <!-- Achievements -->
+        
         <div class="u-card u-achievements-card">
           <div class="u-card-header" style="margin-bottom:16px">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -870,8 +867,6 @@
   </main>
 </div>
 
-<!-- BOOKING MODAL -->
-<!-- MODAL: Nueva Reserva (Admin) -->
 <div id="modal-new-res" class="modal-overlay hidden" onclick="closeNewResModal(event)">
   <div class="modal-box" style="max-width:520px">
     <div class="modal-header">
@@ -940,7 +935,6 @@
   </div>
 </div>
 
-<!-- MODAL: Cancelar Reserva (Admin) -->
 <div id="modal-cancel-res" class="modal-overlay hidden" onclick="closeCancelModal(event)">
   <div class="modal-box">
     <div class="modal-header">
@@ -961,7 +955,6 @@
   </div>
 </div>
 
-<!-- MODAL: Nuevo / Editar Producto -->
 <div id="modal-product" class="modal-overlay hidden" onclick="closeProductModalOverlay(event)">
   <div class="modal-box">
     <div class="modal-header">
