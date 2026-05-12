@@ -109,16 +109,28 @@ const courts = [
   { id: 6, name: 'Voleibol 1',   type: 'Voleibol - Indoor',      sport: 'voleibol',   status: 'Activo',         surface: 'Parquet',          dims: '18m x 9m',  cap: '12 personas',  rate: '$30.00', light: true,  covered: true  },
 ];
 
-let inventory = [
-  { id: 1, name: 'Balones de Fútbol',      category: 'Balones',     stock: 3,   min: 10, location: 'Almacén A', price: '$25.99' },
-  { id: 2, name: 'Balones de Baloncesto',  category: 'Balones',     stock: 12,  min: 5,  location: 'Almacén A', price: '$29.99' },
-  { id: 3, name: 'Redes de Voleibol',      category: 'Equipamiento',stock: 1,   min: 3,  location: 'Almacén B', price: '$89.99' },
-  { id: 4, name: 'Raquetas de Tenis',      category: 'Equipamiento',stock: 4,   min: 8,  location: 'Almacén B', price: '$79.99' },
-  { id: 5, name: 'Conos de Entrenamiento', category: 'Equipamiento',stock: 25,  min: 10, location: 'Almacén A', price: '$12.99' },
-  { id: 6, name: 'Chalecos Deportivos',    category: 'Ropa',        stock: 18,  min: 10, location: 'Almacén C', price: '$19.99' },
-  { id: 7, name: 'Balones de Voleibol',    category: 'Balones',     stock: 6,   min: 4,  location: 'Almacén A', price: '$34.99' },
-  { id: 8, name: 'Canastas de Baloncesto', category: 'Equipamiento',stock: 2,   min: 2,  location: 'Almacén B', price: '$199.99'},
-];
+let inventory = [];
+
+async function loadBackendData() {
+  try {
+    const res = await fetch('/api/inventario');
+    const data = await res.json();
+    inventory = data.map(item => ({
+      id: item.id,
+      name: item.nombre,
+      category: item.category || 'Balones',
+      stock: item.stock,
+      min: item.stock_minimo,
+      location: item.ubicacion,
+      price: '$' + (item.precio || 0)
+    }));
+    if (document.getElementById('section-inventario') && document.getElementById('section-inventario').classList.contains('active')) {
+      filterInventory();
+    }
+  } catch (err) {
+    console.error('Error cargando inventario del backend:', err);
+  }
+}
 
 const HOURS = [8,9,10,11,12,13,14,15,16,17,18,19,20];
 const COURT_NAMES = ['Fútbol 1','Fútbol 2','Tenis 1','Tenis 2','Baloncesto 1','Voleibol 1'];
@@ -456,34 +468,19 @@ function renderInventory(data) {
   });
 }
 
-function adjustStock(id, delta) {
-  const item = inventory.find(i => i.id === id);
-  if (!item) return;
-  item.stock = Math.max(0, item.stock + delta);
-
-  
-  const numEl   = document.getElementById('stock-num-'  + id);
-  const barEl   = document.getElementById('stock-bar-'  + id);
-  const badgeEl = document.getElementById('stock-badge-'+ id);
-  if (numEl)   numEl.textContent = item.stock;
-
-  const status  = getStockStatus(item.stock, item.min);
-  const label   = status === 'critic' ? 'Crítico' : (status === 'low' ? 'Bajo' : 'Normal');
-  const pct     = Math.min(100, Math.round((item.stock / (item.min * 2)) * 100));
-
-  if (barEl) {
-    barEl.style.width = pct + '%';
-    barEl.className   = 'stock-bar2 ' + (status !== 'normal' ? 'low' : 'normal');
+async function adjustStock(id, delta) {
+  try {
+    await fetch(`/api/inventario/${id}/stock`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ delta })
+    });
+    const item = inventory.find(i => i.id === id);
+    if (item) item.stock = Math.max(0, item.stock + delta);
+    filterInventory();
+  } catch (err) {
+    console.error('Error adjusting stock:', err);
   }
-  if (badgeEl) {
-    badgeEl.textContent = label;
-    badgeEl.className   = 'badge ' + (status === 'normal' ? 'normal' : 'critic');
-  }
-
-  
-  const lowCount = inventory.filter(i => i.stock < i.min).length;
-  document.querySelector('.alert-banner-title').textContent =
-    lowCount > 0 ? `Atención: ${lowCount} producto${lowCount > 1 ? 's' : ''} con stock bajo` : 'Stock en orden';
 }
 
 let editingProductId = null;
@@ -511,24 +508,37 @@ function openProductModal(id) {
   document.getElementById('modal-product').classList.remove('hidden');
 }
 
-function saveProduct() {
+async function saveProduct() {
   const name     = document.getElementById('p-name').value.trim();
-  const category = document.getElementById('p-cat').value;
+  const categoryStr = document.getElementById('p-cat').value;
   const stock    = parseInt(document.getElementById('p-stock').value) || 0;
   const min      = parseInt(document.getElementById('p-min').value)   || 5;
-  const price    = document.getElementById('p-price').value.trim();
+  const price    = document.getElementById('p-price').value.replace('$', '').trim();
   const location = document.getElementById('p-location').value.trim();
   if (!name) { alert('El nombre es obligatorio.'); return; }
 
-  if (editingProductId) {
-    const p = inventory.find(i => i.id === editingProductId);
-    if (p) { p.name = name; p.category = category; p.stock = stock; p.min = min; p.price = price; p.location = location; }
-  } else {
-    const newId = Math.max(0, ...inventory.map(i => i.id)) + 1;
-    inventory.push({ id: newId, name, category, stock, min, price, location });
+  const catMap = { 'Balones': 1, 'Equipamiento': 2, 'Ropa': 3, 'Calzado': 4 };
+  const categoria_id = catMap[categoryStr] || 1;
+
+  try {
+    if (editingProductId) {
+      await fetch('/api/inventario/' + editingProductId, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: name, categoria_id, stock, stock_minimo: min, precio: parseFloat(price) || 0, ubicacion: location })
+      });
+    } else {
+      await fetch('/api/inventario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: name, categoria_id, stock, stock_minimo: min, precio: parseFloat(price) || 0, ubicacion: location })
+      });
+    }
+    document.getElementById('modal-product').classList.add('hidden');
+    await loadBackendData();
+  } catch (err) {
+    console.error('Error guardando producto:', err);
   }
-  document.getElementById('modal-product').classList.add('hidden');
-  filterInventory();
 }
 
 function closeProductModalOverlay(e) {
@@ -536,10 +546,14 @@ function closeProductModalOverlay(e) {
     document.getElementById('modal-product').classList.add('hidden');
 }
 
-function deleteProduct(id) {
+async function deleteProduct(id) {
   if (!confirm('¿Eliminar este producto?')) return;
-  inventory = inventory.filter(i => i.id !== id);
-  filterInventory();
+  try {
+    await fetch('/api/inventario/' + id, { method: 'DELETE' });
+    await loadBackendData();
+  } catch(err) {
+    console.error('Error eliminando producto:', err);
+  }
 }
 
 let editingCanchaId = null;
@@ -677,7 +691,7 @@ function closeModal(e) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  
+  loadBackendData();
 });
 
 document.addEventListener('keydown', e => {

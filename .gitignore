@@ -14,3 +14,6 @@
 
 # node_modules (por si se agrega npm en el futuro)
 node_modules/
+
+# Environment variables
+.env

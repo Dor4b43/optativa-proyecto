@@ -1,0 +1,27 @@
+{
+  "name": "optativa-proyecto",
+  "version": "1.0.0",
+  "description": "DeportivosPro es una plataforma integral diseñada para la administración eficiente de centros deportivos. El sistema permite gestionar reservas de canchas, control de inventario, mantenimiento de instalaciones y ofrece un portal personalizado para los clientes.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dor4b43/optativa-proyecto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dor4b43/optativa-proyecto/issues"
+  },
+  "homepage": "https://github.com/Dor4b43/optativa-proyecto#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.3"
+  }
+}
